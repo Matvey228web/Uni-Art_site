@@ -6,9 +6,9 @@ export default function Services() {
   return (
     <Section
       id="services"
-      eyebrow="Услуги"
-      title="Что мы делаем"
-      lead="Можно взять всё под ключ, можно — отдельный этап. Команда и техника свои."
+      eyebrow="Чем занимаемся"
+      title="Что умеем"
+      lead="Делаем всё сами — просто потому, что больше некому."
     >
       <div className="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
         {services.map((service, i) => (

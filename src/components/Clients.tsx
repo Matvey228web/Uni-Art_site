@@ -1,6 +1,8 @@
 import { clients } from "@/content/site";
 
 export default function Clients() {
+  if (clients.length === 0) return null;
+
   const row = [...clients, ...clients];
 
   return (

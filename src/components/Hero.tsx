@@ -64,21 +64,22 @@ export default function Hero() {
                   className="group flex items-center gap-3"
                 >
                   <PlayButton size={56} variant="solid" interactive={false} />
-                  <span className="meta text-fg">Шоурил · 01:42</span>
+                  <span className="meta text-fg">Смотреть ролик</span>
                 </button>
               )}
               <Link
                 href="/#contact"
                 className="meta rounded-full border border-line px-5 py-3 text-fg transition hover:border-accent hover:text-accent"
               >
-                Обсудить проект
+                Написать нам
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Цифры отдельной полосой: отделены от кадра, но читаются как его подпись */}
+      {/* Цифры отдельной полосой. Пустой список — полосы нет */}
+      {stats.length > 0 && (
       <section className="border-t border-line bg-bg-soft">
         <dl className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-px bg-line sm:grid-cols-4">
           {stats.map((s) => (
@@ -94,6 +95,7 @@ export default function Hero() {
           ))}
         </dl>
       </section>
+      )}
 
       {showreelOpen && (
         <VideoModal

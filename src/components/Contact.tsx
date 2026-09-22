@@ -5,8 +5,7 @@ import { useState } from "react";
 import { site } from "@/content/site";
 import Section from "./Section";
 
-const projectTypes = ["Реклама", "Клип", "Короткий метр", "Документальное", "Другое"];
-const budgets = ["до 300 тыс.", "300–800 тыс.", "800 тыс. – 2 млн", "больше 2 млн", "пока не знаю"];
+const projectTypes = ["Короткий метр", "Клип", "Документальное", "Совместный проект", "Другое"];
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -25,7 +24,6 @@ export default function Contact() {
         `Имя: ${data.name ?? ""}`,
         `Контакт: ${data.contact ?? ""}`,
         `Тип проекта: ${data.type ?? ""}`,
-        `Бюджет: ${data.budget ?? ""}`,
         "",
         String(data.message ?? ""),
       ].join("\n");
@@ -57,9 +55,9 @@ export default function Contact() {
   return (
     <Section
       id="contact"
-      eyebrow="Контакты"
-      title="Расскажите о проекте"
-      lead="Ответим в течение рабочего дня: обсудим задачу, сроки и бюджет, предложим решение."
+      eyebrow="Связь"
+      title="Напишите нам"
+      lead="Хотите снять что-то вместе или позвать нас на съёмку — пишите. Отвечаем обычно за день."
     >
       <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
         <div className="space-y-8">
@@ -128,20 +126,10 @@ export default function Contact() {
                 ))}
               </select>
             </label>
-            <label className="block">
-              <span className="mb-2 block text-sm text-muted">Бюджет</span>
-              <select name="budget" className={fieldClass} defaultValue={budgets[0]}>
-                {budgets.map((budget) => (
-                  <option key={budget} value={budget}>
-                    {budget}
-                  </option>
-                ))}
-              </select>
-            </label>
           </div>
 
           <label className="block">
-            <span className="mb-2 block text-sm text-muted">О задаче</span>
+            <span className="mb-2 block text-sm text-muted">Что хотите снять</span>
             <textarea name="message" rows={5} className={fieldClass} />
           </label>
 
@@ -161,14 +149,14 @@ export default function Contact() {
             disabled={status === "sending"}
             className="inline-flex rounded-full bg-accent px-6 py-3 text-sm font-medium text-black transition hover:bg-accent/85 disabled:opacity-60"
           >
-            {status === "sending" ? "Отправляем…" : "Отправить заявку"}
+            {status === "sending" ? "Отправляем…" : "Отправить"}
           </button>
 
           <p aria-live="polite" className="min-h-5 text-sm">
             {status === "sent" && (
               <span className="text-accent">
                 {site.formEndpoint
-                  ? "Заявка отправлена. Свяжемся с вами в ближайшее время."
+                  ? "Отправлено. Ответим в ближайшее время."
                   : "Открыли письмо в вашем почтовом клиенте — осталось нажать «Отправить»."}
               </span>
             )}

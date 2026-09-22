@@ -16,8 +16,8 @@ export default function Team() {
     <Section
       id="team"
       eyebrow="Команда"
-      title="Кто снимает"
-      lead="Постоянное ядро объединения. На проект собираем расширенную группу под задачу."
+      title="Кто мы"
+      lead="Постоянные участники. На съёмки зовём друзей, когда рук не хватает."
     >
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {team.map((member, i) => (

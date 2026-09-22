@@ -32,8 +32,8 @@ export default function Works() {
     <Section
       id="works"
       eyebrow="Работы"
-      title="Избранные проекты"
-      lead="Реклама, клипы, короткий метр и документальное — то, что мы сняли сами, от идеи до мастера."
+      title="Что сняли"
+      lead="Короткий метр, клипы и документальные зарисовки. Всё сделано своими силами."
     >
       <div
         className="no-scrollbar -mx-4 mb-8 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:px-0"

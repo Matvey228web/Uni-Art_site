@@ -56,7 +56,7 @@ export default function Header() {
             href="/#contact"
             className="hidden rounded-full bg-accent px-5 py-2 text-sm font-medium text-black transition hover:bg-accent/85 sm:inline-flex"
           >
-            Обсудить проект
+            Написать
           </Link>
           <button
             type="button"
@@ -106,7 +106,7 @@ export default function Header() {
                 onClick={() => setOpen(false)}
                 className="mt-6 inline-flex rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-[#0b0c0e]"
               >
-                Обсудить проект
+                Написать
               </Link>
             </li>
           </ul>

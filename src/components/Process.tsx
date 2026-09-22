@@ -6,9 +6,9 @@ export default function Process() {
   return (
     <Section
       id="about"
-      eyebrow="Как работаем"
-      title="Процесс"
-      lead="Прозрачные этапы: на каждом вы понимаете, что происходит, сколько это стоит и когда закончится."
+      eyebrow="Как это устроено"
+      title="Как снимаем"
+      lead="Без сложных схем: договорились, подготовились, сняли, смонтировали."
     >
       <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {processSteps.map((step, i) => (

@@ -127,7 +127,7 @@ body {
  */
 .grain {
   overflow: hidden;
-  opacity: var(--grain-opacity, 0.16);
+  opacity: var(--grain-opacity, 0.055);
 }
 
 .grain::before,
