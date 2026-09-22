@@ -139,3 +139,12 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* Кадры в монохромной палитре */
+[data-stills="mono"] .still {
+  filter: grayscale(1) contrast(1.05);
+}
+
+[data-stills="mono"] .group:hover .still {
+  filter: grayscale(0) contrast(1);
+}

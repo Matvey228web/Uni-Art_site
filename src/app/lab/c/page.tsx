@@ -1,16 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRef } from "react";
 import { projects, site } from "@/content/site";
-
-const ACCENT = "#ff4a1c";
+import PaletteShell from "@/components/lab/PaletteShell";
+import PlayButton from "@/components/lab/PlayButton";
 
 /**
  * Вариант C — «Характер».
  * Крупная типографика во весь экран, один резкий акцент,
- * проекты — горизонтальная лента. Работает даже на слабом портфолио.
+ * проекты — горизонтальная лента. Держится на подаче, а не на объёме портфолио.
  */
 export default function VariantC() {
   const railRef = useRef<HTMLDivElement>(null);
@@ -22,23 +21,27 @@ export default function VariantC() {
   }
 
   return (
-    <div className="min-h-svh bg-[#0b0b0b] text-white">
-      <header className="fixed inset-x-0 top-0 z-40">
+    <PaletteShell defaultPalette="cinnabar">
+      <header className="absolute inset-x-0 top-0 z-40">
         <div className="flex items-center justify-between px-4 py-4 sm:px-8">
           <span className="text-[12px] font-semibold uppercase tracking-[0.3em]">
             {site.name}
           </span>
-          <Link
-            href="/lab/"
-            className="text-[12px] uppercase tracking-[0.18em] opacity-60 hover:opacity-100"
-          >
-            ← Lab
-          </Link>
+          <nav className="hidden gap-7 text-[12px] uppercase tracking-[0.18em] sm:flex">
+            {["Работы", "Студия", "Контакты"].map((item) => (
+              <span
+                key={item}
+                className="cursor-pointer text-[var(--p-muted)] transition hover:text-[var(--p-fg)]"
+              >
+                {item}
+              </span>
+            ))}
+          </nav>
         </div>
       </header>
 
       {/* Первый экран */}
-      <section className="relative flex min-h-svh flex-col justify-end overflow-hidden px-4 pb-10 pt-24 sm:px-8 sm:pb-14">
+      <section className="relative flex min-h-svh flex-col justify-end overflow-hidden px-4 pb-24 pt-24 sm:px-8 sm:pb-20">
         {/* Кадр: полосой сверху на телефоне, вертикальной полосой справа на десктопе */}
         <div className="pointer-events-none absolute right-0 top-0 h-[46%] w-full lg:h-full lg:w-[38%]">
           <Image
@@ -47,17 +50,14 @@ export default function VariantC() {
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 38vw"
-            className="kenburns object-cover opacity-60"
+            className="still kenburns object-cover opacity-65"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0b] via-[#0b0b0b]/40 to-transparent lg:hidden" />
-          <div className="absolute inset-0 hidden bg-gradient-to-r from-[#0b0b0b] via-transparent to-transparent lg:block" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--p-bg)] via-[var(--p-bg)]/40 to-transparent lg:hidden" />
+          <div className="absolute inset-0 hidden bg-gradient-to-r from-[var(--p-bg)] via-transparent to-transparent lg:block" />
         </div>
 
         <div className="relative">
-          <div
-            className="mb-8 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]"
-            style={{ backgroundColor: ACCENT }}
-          >
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-[var(--p-accent)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--p-on-accent)]">
             Набираем проекты на 2026
           </div>
 
@@ -66,45 +66,29 @@ export default function VariantC() {
             style={{ fontSize: "clamp(2.6rem, 12.5vw, 11rem)" }}
           >
             <span className="block">Снимаем</span>
-            <span className="block" style={{ color: ACCENT }}>
-              то, что
-            </span>
+            <span className="block text-[var(--p-accent)]">то, что</span>
             <span className="block">смотрят</span>
             <span className="block">до конца</span>
           </h1>
 
-          <div className="mt-10 flex flex-wrap items-end justify-between gap-6 border-t border-white/15 pt-6">
-            <p className="max-w-md text-[15px] leading-relaxed text-white/70">
+          <div className="mt-10 flex flex-wrap items-end justify-between gap-6 border-t border-[var(--p-line)] pt-6">
+            <p className="max-w-md text-[15px] leading-relaxed text-[var(--p-muted)]">
               Реклама, клипы, короткий метр и документальное кино. Полный цикл —
               от первой строчки сценария до мастера под площадки.
             </p>
-            <button
-              type="button"
-              className="group inline-flex items-center gap-3 text-[13px] uppercase tracking-[0.18em]"
-            >
-              <span
-                className="flex h-14 w-14 items-center justify-center rounded-full transition group-hover:scale-110"
-                style={{ backgroundColor: ACCENT }}
-              >
-                <span
-                  aria-hidden
-                  className="ml-1 inline-block h-0 w-0 border-y-[7px] border-l-[11px] border-y-transparent border-l-black"
-                />
-              </span>
+            <div className="inline-flex items-center gap-3 text-[13px] uppercase tracking-[0.18em]">
+              <PlayButton size={56} variant="solid" />
               Шоурил 01:42
-            </button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Лента проектов */}
-      <section className="border-t border-white/12 py-14 sm:py-20">
+      <section className="border-t border-[var(--p-line)] py-14 pb-28 sm:py-20 sm:pb-28">
         <div className="mb-8 flex items-end justify-between gap-6 px-4 sm:px-8">
           <div>
-            <p
-              className="text-[11px] font-semibold uppercase tracking-[0.24em]"
-              style={{ color: ACCENT }}
-            >
+            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[var(--p-accent)]">
               Избранное
             </p>
             <h2 className="display mt-3 text-4xl sm:text-6xl">Работы</h2>
@@ -116,7 +100,7 @@ export default function VariantC() {
                 type="button"
                 onClick={() => scrollRail(d)}
                 aria-label={d === 1 ? "Дальше" : "Назад"}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-lg transition hover:border-white"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--p-line)] text-lg transition hover:border-[var(--p-fg)]"
               >
                 {d === 1 ? "→" : "←"}
               </button>
@@ -139,33 +123,30 @@ export default function VariantC() {
                   alt={project.title}
                   fill
                   sizes="(max-width: 640px) 78vw, (max-width: 1024px) 42vw, 30vw"
-                  className="object-cover transition duration-700 group-hover:scale-105"
+                  className="still object-cover transition duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                <span
-                  className="display absolute left-4 top-3 text-5xl sm:text-6xl"
-                  style={{ color: ACCENT }}
-                >
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent" />
+                <span className="display absolute left-4 top-3 text-5xl text-[var(--p-accent)] sm:text-6xl">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <div className="absolute inset-x-4 bottom-4">
-                  <p className="text-[11px] uppercase tracking-[0.2em] text-white/70">
+                <div className="absolute inset-x-4 bottom-4 text-white">
+                  <p className="text-[11px] uppercase tracking-[0.2em] opacity-70">
                     {project.category} · {project.year}
                   </p>
                   <h3 className="display mt-1 text-2xl">{project.title}</h3>
                 </div>
               </div>
-              <p className="mt-3 text-[13px] leading-relaxed text-white/60">
+              <p className="mt-3 text-[13px] leading-relaxed text-[var(--p-muted)]">
                 {project.summary}
               </p>
             </article>
           ))}
         </div>
 
-        <p className="mt-6 px-4 text-[12px] uppercase tracking-[0.18em] text-white/40 sm:hidden">
+        <p className="mt-6 px-4 text-[12px] uppercase tracking-[0.18em] text-[var(--p-muted)] sm:hidden">
           Листай вбок →
         </p>
       </section>
-    </div>
+    </PaletteShell>
   );
 }
