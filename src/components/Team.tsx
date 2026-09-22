@@ -22,7 +22,10 @@ export default function Team() {
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {team.map((member, i) => (
           <Reveal key={member.name + i} delay={(i % 4) * 70}>
-            <article className="h-full overflow-hidden rounded-lg border border-line bg-surface">
+            <article
+              data-rim
+              className="rim h-full overflow-hidden rounded-lg border border-line bg-surface"
+            >
               <div className="relative aspect-[4/5] bg-bg-soft">
                 {member.photo ? (
                   <Image

@@ -49,7 +49,7 @@ export default function PlayButton({
           borderLeftWidth: size * 0.18,
           borderLeftStyle: "solid",
           borderLeftColor: solid
-            ? "var(--p-on-accent, #0b0c0e)"
+            ? "var(--p-on-accent, var(--on-accent))"
             : "var(--p-fg, var(--fg))",
         }}
       />

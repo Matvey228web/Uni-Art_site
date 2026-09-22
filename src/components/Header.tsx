@@ -68,7 +68,8 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <Link
             href="/#contact"
-            className="hidden rounded-full bg-accent px-5 py-2 text-sm font-medium text-black transition hover:bg-accent/85 sm:inline-flex"
+            data-rim
+            className="rim meta hidden rounded-full bg-accent px-5 py-2.5 text-on-accent transition hover:bg-accent/85 sm:inline-flex"
           >
             Написать
           </Link>
@@ -119,7 +120,7 @@ export default function Header() {
               <Link
                 href="/#contact"
                 onClick={() => setOpen(false)}
-                className="mt-6 inline-flex rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-[#0b0c0e]"
+                className="mt-6 inline-flex rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-on-accent"
               >
                 Написать
               </Link>

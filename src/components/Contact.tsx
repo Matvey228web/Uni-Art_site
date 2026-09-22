@@ -162,7 +162,8 @@ export default function Contact() {
           <button
             type="submit"
             disabled={status === "sending"}
-            className="inline-flex rounded-full bg-accent px-6 py-3 text-sm font-medium text-black transition hover:bg-accent/85 disabled:opacity-60"
+            data-rim
+            className="rim inline-flex rounded-full bg-accent px-6 py-3 text-sm font-medium text-on-accent transition hover:bg-accent/85 disabled:opacity-60"
           >
             {status === "sending" ? "Отправляем…" : "Отправить"}
           </button>

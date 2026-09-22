@@ -49,7 +49,7 @@ export default function Works() {
             onClick={() => setFilter(f.label)}
             className={`meta flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 transition ${
               filter === f.label
-                ? "border-accent bg-accent text-[#0b0c0e]"
+                ? "border-accent bg-accent text-on-accent"
                 : "border-line hover:border-accent hover:text-fg"
             }`}
           >
@@ -62,7 +62,11 @@ export default function Works() {
       <div className="grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:gap-x-6">
         {visible.map((project, i) => (
           <Reveal key={project.slug} delay={(i % 2) * 90}>
-            <Link href={`/works/${project.slug}/`} className="group block">
+            <Link
+              href={`/works/${project.slug}/`}
+              data-rim
+              className="rim group block rounded-sm"
+            >
               <div className="relative aspect-video overflow-hidden bg-black">
                 <Image
                   src={project.poster}

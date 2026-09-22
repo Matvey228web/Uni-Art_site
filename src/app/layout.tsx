@@ -49,7 +49,7 @@ export const metadata: Metadata = {
 
 /** Цвет строки состояния в мобильных браузерах */
 export const viewport: Viewport = {
-  themeColor: "#0b0c0e",
+  themeColor: "var(--on-accent)",
   colorScheme: "dark",
 };
 
@@ -61,7 +61,7 @@ export default function RootLayout({
       <body className={`${body.variable} ${display.variable} antialiased`}>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-[#0b0c0e]"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent"
         >
           К основному содержимому
         </a>

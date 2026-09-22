@@ -69,7 +69,8 @@ export default function Hero() {
               )}
               <Link
                 href="/#contact"
-                className="meta rounded-full border border-line px-5 py-3 text-fg transition hover:border-accent hover:text-accent"
+                data-rim
+                className="rim meta rounded-full border border-line px-5 py-3 text-fg transition hover:border-accent hover:text-accent"
               >
                 Написать нам
               </Link>

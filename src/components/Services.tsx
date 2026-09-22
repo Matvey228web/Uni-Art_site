@@ -13,7 +13,7 @@ export default function Services() {
       <div className="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
         {services.map((service, i) => (
           <Reveal key={service.title} delay={(i % 2) * 90}>
-            <article className="h-full bg-bg-soft p-6 sm:p-8">
+            <article data-rim className="rim h-full bg-bg-soft p-6 sm:p-8">
               <h3 className="display text-2xl">{service.title}</h3>
               <p className="mt-3 text-sm text-muted">{service.description}</p>
               <ul className="mt-6 space-y-2 text-sm">

@@ -1,35 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Кадр-заглушка">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0.3" y2="1">
-      <stop offset="0%" stop-color="#0e1220"/>
-      <stop offset="100%" stop-color="#05060a"/>
-    </linearGradient>
-    <radialGradient id="key" cx="40%" cy="74%" r="54%">
-      <stop offset="0%" stop-color="#c2d0f5" stop-opacity="0.5"/>
-      <stop offset="55%" stop-color="#c2d0f5" stop-opacity="0.12"/>
-      <stop offset="100%" stop-color="#c2d0f5" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="shaft" x1="0.5" y1="0" x2="0.3" y2="1">
-      <stop offset="0%" stop-color="#c2d0f5" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="#c2d0f5" stop-opacity="0"/>
-    </linearGradient>
-    <radialGradient id="vig" cx="50%" cy="45%" r="72%">
-      <stop offset="48%" stop-color="#000" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#000" stop-opacity="0.88"/>
-    </radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0%" stop-color="#08222b"/><stop offset="100%" stop-color="#03080b"/></linearGradient>
+    <radialGradient id="key" cx="40%" cy="74%" r="54%"><stop offset="0%" stop-color="#6fe4ff" stop-opacity="0.48"/><stop offset="55%" stop-color="#6fe4ff" stop-opacity="0.12"/><stop offset="100%" stop-color="#6fe4ff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="shaft" x1="0.5" y1="0" x2="0.3" y2="1"><stop offset="0%" stop-color="#6fe4ff" stop-opacity="0.26"/><stop offset="100%" stop-color="#6fe4ff" stop-opacity="0"/></linearGradient>
+    <radialGradient id="vig" cx="50%" cy="45%" r="72%"><stop offset="48%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity="0.88"/></radialGradient>
     <filter id="soft"><feGaussianBlur stdDeviation="24"/></filter>
-    <filter id="grain">
-      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
-      <feColorMatrix type="saturate" values="0"/>
-    </filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
   </defs>
-
   <rect width="1600" height="900" fill="url(#bg)"/>
   <rect width="1600" height="900" fill="url(#key)"/>
   <polygon points="420,0 760,0 1120,900 840,900" fill="url(#shaft)"/>
-
-  <g filter="url(#soft)" fill="#04050a" opacity="0.9"><ellipse cx="430" cy="700" rx="130" ry="210"/><circle cx="430" cy="470" r="74"/></g>
-
+  <g filter="url(#soft)" fill="#02060a" opacity="0.9"><ellipse cx="430" cy="700" rx="130" ry="210"/><circle cx="430" cy="470" r="74"/></g>
   <rect width="1600" height="900" fill="url(#vig)"/>
   <rect width="1600" height="900" filter="url(#grain)" opacity="0.09"/>
 </svg>

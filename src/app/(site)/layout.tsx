@@ -1,4 +1,5 @@
 import FilmGrain from "@/components/FilmGrain";
+import RimLight from "@/components/RimLight";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -12,6 +13,7 @@ export default function SiteLayout({
       <main id="main">{children}</main>
       <Footer />
       <FilmGrain />
+      <RimLight />
     </>
   );
 }

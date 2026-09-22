@@ -246,7 +246,8 @@ export default function PropsCollage() {
         ref={sceneRef}
         role="group"
         aria-label="Коллаж из киноатрибутики, предметы можно перетаскивать"
-        className="relative h-[46svh] min-h-[300px] w-full touch-pan-y select-none overflow-hidden rounded-lg border border-line bg-bg-soft"
+        data-rim
+        className="rim relative h-[46svh] min-h-[300px] w-full touch-pan-y select-none overflow-hidden rounded-lg border border-line bg-bg-soft"
       >
         {/* разметка кадра на фоне */}
         <div
