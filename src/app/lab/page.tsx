@@ -26,6 +26,18 @@ const variants = [
     ],
   },
   {
+    href: "/lab/depth/",
+    letter: "D",
+    name: "Глубина",
+    idea: "Прокрутка ведёт камеру сквозь объёмную сцену",
+    points: [
+      "Блоки стоят на разной глубине",
+      "Камера летит по кривой и обходит их",
+      "Туман и свет по расстоянию",
+      "Без движения — обычная плоская лента",
+    ],
+  },
+  {
     href: "/lab/c/",
     letter: "C",
     name: "Характер",
@@ -57,7 +69,7 @@ export default function LabIndex() {
           с вами на соседний прототип.
         </p>
 
-        <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
+        <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
           {variants.map((v) => (
             <Link
               key={v.href}
