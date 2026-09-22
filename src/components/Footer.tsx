@@ -3,7 +3,7 @@ import { navLinks, site } from "@/content/site";
 
 export default function Footer() {
   return (
-    <footer className="flutter-page border-t border-line bg-bg-soft">
+    <footer className="flutter-page overflow-x-clip border-t border-line bg-bg-soft">
       <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
         <div className="flex flex-col gap-10 md:flex-row md:justify-between">
           <div className="max-w-sm">

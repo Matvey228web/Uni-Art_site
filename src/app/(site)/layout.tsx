@@ -10,7 +10,11 @@ export default function SiteLayout({
   return (
     <>
       <Header />
-      <main id="main" className="flutter-page">{children}</main>
+      {/* ореол контрового света выходит за края элементов и расширял бы
+          область прокрутки: обрезаем по горизонтали, по вертикали он нужен */}
+      <main id="main" className="flutter-page overflow-x-clip">
+        {children}
+      </main>
       <Footer />
       <FilmGrain />
       <RimLight />
