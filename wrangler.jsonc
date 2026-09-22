@@ -4,8 +4,8 @@
   // а `npx wrangler deploy` раздаёт эту папку как Worker.
   "$schema": "node_modules/wrangler/config-schema.json",
 
-  // ВАЖНО: должно совпадать с именем Worker'а в дашборде Cloudflare.
-  "name": "uni-art-site",
+  // Имя Worker'а в дашборде Cloudflare. Менять только вместе с ним.
+  "name": "creaivas",
 
   "compatibility_date": "2026-09-22",
 

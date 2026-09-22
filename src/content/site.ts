@@ -78,7 +78,7 @@ export const site = {
   formEndpoint: process.env.NEXT_PUBLIC_FORM_ENDPOINT ?? "",
 
   /** Домен для canonical-ссылок и OG-тегов. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.pages.dev", // TODO
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://creaivas.odintsovmatvey08.workers.dev",
 
   socials: [
     { label: "Telegram", href: "https://t.me/example" }, // TODO
