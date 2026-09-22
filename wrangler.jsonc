@@ -1,0 +1,23 @@
+{
+  // Конфиг деплоя на Cloudflare Workers со статическими ассетами.
+  // Сборку делает `npm run build` (Next.js кладёт статику в ./out),
+  // а `npx wrangler deploy` раздаёт эту папку как Worker.
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  // ВАЖНО: должно совпадать с именем Worker'а в дашборде Cloudflare.
+  "name": "uni-art-site",
+
+  "compatibility_date": "2026-09-22",
+
+  "assets": {
+    "directory": "./out",
+    // Страницы вида /works/slug/ отдаются как index.html внутри папки.
+    "html_handling": "auto-trailing-slash",
+    // Несуществующий адрес отдаёт нашу страницу 404 с кодом 404.
+    "not_found_handling": "404-page"
+  },
+
+  "observability": {
+    "enabled": true
+  }
+}

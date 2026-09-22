@@ -2,7 +2,7 @@
 
 Одностраничный сайт кинопродакшна с отдельными страницами проектов.
 Next.js 16 (App Router) + Tailwind CSS 4, собирается в статику и раздаётся
-Cloudflare Pages — без сервера, без воркеров, бесплатно.
+Cloudflare — без сервера, бесплатно.
 
 ## Что внутри
 
@@ -48,32 +48,46 @@ npm run lint
 ## Переменные окружения
 
 Скопируйте `.env.example` в `.env.local` для локальной разработки и задайте те же
-переменные в настройках Cloudflare Pages:
+переменные в настройках Cloudflare (Build variables):
 
 - `NEXT_PUBLIC_SITE_URL` — боевой домен, используется в canonical, OG и sitemap;
 - `NEXT_PUBLIC_FORM_ENDPOINT` — URL приёма заявок (Formspree, Getform, Web3Forms,
   собственный Cloudflare Worker). Если не задан, форма откроет почтовый клиент
   с уже заполненным письмом — сайт остаётся рабочим, но заявки приходят вручную.
 
-## Деплой на Cloudflare Pages
+## Деплой на Cloudflare
 
-1. Cloudflare Dashboard → **Workers & Pages** → **Create** → **Pages** →
-   **Connect to Git**, выбрать этот репозиторий.
-2. Настройки сборки:
-   - Framework preset: **Next.js (Static HTML Export)** (или **None**);
-   - Build command: `npm run build`;
-   - Build output directory: `out`;
-   - Node version: `22` (переменная `NODE_VERSION=22`).
-3. В **Settings → Environment variables** добавить `NEXT_PUBLIC_SITE_URL`
-   и, если нужен приём заявок, `NEXT_PUBLIC_FORM_ENDPOINT`.
-4. Деплой. Дальше каждый пуш в основную ветку собирается автоматически,
-   пуш в другую ветку даёт preview-ссылку.
+Сайт деплоится на **Cloudflare Workers со статическими ассетами**: `npm run build`
+собирает статику в `out/`, `npx wrangler deploy` раздаёт эту папку.
+Настройки деплоя лежат в [`wrangler.jsonc`](wrangler.jsonc).
 
-Свой домен подключается в **Custom domains** — если домен уже в Cloudflare,
-DNS-запись создаётся автоматически.
+Поле `name` в `wrangler.jsonc` должно совпадать с именем Worker'а в дашборде
+Cloudflare — иначе деплой уедет в другой (или новый) Worker.
+
+Подключение через Workers Builds (Cloudflare Dashboard → **Workers & Pages** →
+**Import a repository**):
+
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+- Root directory: `/`
+
+Переменные окружения задаются в **Settings → Variables and Secrets**. Переменные
+с префиксом `NEXT_PUBLIC_` нужны на этапе сборки, поэтому добавлять их надо
+в **Build variables**, а не только в рантайм-переменные.
 
 Заголовки кеширования и безопасности лежат в [`public/_headers`](public/_headers) —
-Cloudflare Pages применяет их сам, править конфиг не нужно.
+Next копирует файл в `out/`, Cloudflare применяет его сам.
+
+Свой домен подключается в **Settings → Domains & Routes**.
+
+<details>
+<summary>Альтернатива: Cloudflare Pages</summary>
+
+Проект собирается и на Pages без изменений в коде: Build command `npm run build`,
+Build output directory `out`, `NODE_VERSION=22`. `wrangler.jsonc` в этом случае
+не используется. Для новых проектов Cloudflare рекомендует Workers.
+
+</details>
 
 ## Структура
 
