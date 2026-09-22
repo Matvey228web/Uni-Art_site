@@ -1,22 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  /* Петроль как основа, малиновый акцент, холодный голубой контровый свет.
-     База и акцент стоят почти напротив друг друга на цветовом круге,
-     контровый свет — сосед базы. Все пары проверены на контраст:
-     минимум 4.58:1, то есть проходят AA даже мелким кеглем. */
-  --bg: #060f14;
-  --bg-soft: #0a1820;
-  --surface: #0e212b;
-  --border: rgba(150, 205, 220, 0.18);
-  --fg: #e6f2f5;
-  --fg-muted: rgba(230, 242, 245, 0.62);
-  --accent: #ff2e63;
-  --accent-soft: rgba(255, 46, 99, 0.14);
+  /* «Слива»: баклажановая основа, винный акцент, лиловый контровый свет.
+     Проверено на контраст: акцент как мелкий текст на поверхности — 4.67:1,
+     основной текст на фоне — 15.6:1. */
+  --bg: #100a14;
+  --bg-soft: #18101f;
+  --surface: #1f1528;
+  --border: rgba(225, 200, 240, 0.16);
+  --fg: #ede4f2;
+  --fg-muted: rgba(237, 228, 242, 0.6);
+  --accent: #ae6fa1;
+  --accent-soft: rgba(174, 111, 161, 0.16);
   /* цвет контурного света */
-  --rim: #44d6ff;
+  --rim: #c795bd;
   /* текст на заливке акцентом */
-  --on-accent: #060f14;
+  --on-accent: #100a14;
 }
 
 @theme inline {
@@ -432,6 +431,70 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .flutter {
+    animation: none;
+  }
+}
+
+/*
+ * Второй слой дрожания — на всё отображение сразу, как зерно.
+ *
+ * Периоды намеренно не совпадают с дрожанием медиа (3.1 и 11.7 секунды):
+ * страница ходит своим ритмом, кадры внутри неё — своим, и вместе они
+ * никогда не попадают в такт. Совпади периоды, всё двигалось бы единым
+ * куском и эффект бы пропал.
+ *
+ * Размах меньше, чем у медиа: движения складываются, и на кадрах сумма
+ * не должна выходить за пределы заметного.
+ */
+@keyframes gate-weave-page {
+  0% {
+    translate: 0 0;
+  }
+  17% {
+    translate: -0.3px 0.2px;
+  }
+  33% {
+    translate: 0.25px 0.35px;
+  }
+  48% {
+    translate: 0.15px -0.3px;
+  }
+  62% {
+    translate: -0.35px -0.15px;
+  }
+  79% {
+    translate: 0.3px 0.25px;
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+
+@keyframes gate-splice-page {
+  0%,
+  91% {
+    transform: translate3d(0, 0, 0);
+  }
+  93% {
+    transform: translate3d(-1.1px, 1.3px, 0);
+  }
+  95% {
+    transform: translate3d(0.5px, -0.5px, 0);
+  }
+  97%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.flutter-page {
+  animation:
+    gate-weave-page 4.7s ease-in-out infinite,
+    gate-splice-page 17.3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flutter-page {
     animation: none;
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 
 type Props = {
   src: string;
@@ -26,7 +27,12 @@ export default function VideoModal({ src, title, onClose }: Props) {
     };
   }, [onClose]);
 
-  return (
+  // Окно рисуется прямо в body. Анимация дрожания на main делает его
+  // содержащим блоком для fixed-потомков, и модалка уехала бы вниз страницы.
+  // На сервере окна не существует: оно появляется только по клику.
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -58,6 +64,7 @@ export default function VideoModal({ src, title, onClose }: Props) {
           />
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

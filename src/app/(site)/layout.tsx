@@ -10,7 +10,7 @@ export default function SiteLayout({
   return (
     <>
       <Header />
-      <main id="main">{children}</main>
+      <main id="main" className="flutter-page">{children}</main>
       <Footer />
       <FilmGrain />
       <RimLight />

@@ -38,7 +38,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+      className={`flutter-page fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
         scrolled || open
           ? "border-b border-line/80 bg-bg/90 backdrop-blur"
           : "border-b border-transparent"
