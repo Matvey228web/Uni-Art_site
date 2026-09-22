@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <defs>
+    <linearGradient id="met" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c6cad1"/><stop offset="100%" stop-color="#8b9099"/>
+    </linearGradient>
+    <linearGradient id="amb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e0813c"/><stop offset="100%" stop-color="#b8672d"/>
+    </linearGradient>
+    <radialGradient id="gls" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#7fa8c9"/><stop offset="60%" stop-color="#2b3a4a"/><stop offset="100%" stop-color="#101820"/>
+    </radialGradient>
+  </defs>
+  
+    <circle cx="150" cy="150" r="140" fill="#22252a" stroke="#8b9099" stroke-width="4"/>
+    <circle cx="150" cy="150" r="118" fill="none" stroke="#0c0e11" stroke-width="16"/>
+    <circle cx="150" cy="150" r="96" fill="url(#met)"/>
+    <circle cx="208.0" cy="150.0" r="24" fill="#22252a"/><circle cx="179.0" cy="200.2" r="24" fill="#22252a"/><circle cx="121.0" cy="200.2" r="24" fill="#22252a"/><circle cx="92.0" cy="150.0" r="24" fill="#22252a"/><circle cx="121.0" cy="99.8" r="24" fill="#22252a"/><circle cx="179.0" cy="99.8" r="24" fill="#22252a"/>
+    <circle cx="150" cy="150" r="26" fill="#0c0e11"/>
+    <circle cx="150" cy="150" r="12" fill="#8b9099"/></svg>

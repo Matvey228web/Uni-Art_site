@@ -2,6 +2,7 @@ import Clients from "@/components/Clients";
 import Contact from "@/components/Contact";
 import Hero from "@/components/Hero";
 import Process from "@/components/Process";
+import PropsSection from "@/components/PropsSection";
 import Services from "@/components/Services";
 import Team from "@/components/Team";
 import Works from "@/components/Works";
@@ -35,6 +36,7 @@ export default function Home() {
       <Works />
       <Services />
       <Process />
+      <PropsSection />
       <Clients />
       <Team />
       <Contact />
