@@ -67,7 +67,7 @@ export default function Works() {
               data-rim
               className="rim group block rounded-sm"
             >
-              <div className="relative aspect-video overflow-hidden bg-black">
+              <div className="flutter relative aspect-video overflow-hidden bg-black">
                 <Image
                   src={project.poster}
                   alt={`Кадр из проекта «${project.title}»`}

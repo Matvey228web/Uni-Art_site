@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     <>
       <section className="relative isolate flex min-h-svh flex-col justify-end overflow-hidden pt-24">
-        <div className="absolute inset-0 -z-10">
+        <div className="flutter absolute inset-0 -z-10">
           {site.heroVideo ? (
             <video
               className="h-full w-full object-cover"

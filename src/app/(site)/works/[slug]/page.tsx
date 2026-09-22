@@ -40,7 +40,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
 
   return (
     <article className="pt-16 sm:pt-20">
-      <div className="relative aspect-[16/9] w-full overflow-hidden sm:aspect-[21/9]">
+      <div className="flutter relative aspect-[16/9] w-full overflow-hidden sm:aspect-[21/9]">
         <Image
           src={project.poster}
           alt={`Кадр из проекта «${project.title}»`}

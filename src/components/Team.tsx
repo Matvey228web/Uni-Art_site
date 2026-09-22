@@ -26,7 +26,7 @@ export default function Team() {
               data-rim
               className="rim h-full overflow-hidden rounded-lg border border-line bg-surface"
             >
-              <div className="relative aspect-[4/5] bg-bg-soft">
+              <div className="flutter relative aspect-[4/5] bg-bg-soft">
                 {member.photo ? (
                   <Image
                     src={member.photo}
