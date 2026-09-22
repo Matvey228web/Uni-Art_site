@@ -119,7 +119,10 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
         )}
 
         <nav className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-line/60 py-10">
-          <Link href="/#works" className="text-sm text-muted transition hover:text-fg">
+          <Link
+            href="/#works"
+            className="-my-2 inline-block py-2 text-sm text-muted transition hover:text-fg"
+          >
             ← Все работы
           </Link>
           <Link href={`/works/${next.slug}/`} className="group text-right">

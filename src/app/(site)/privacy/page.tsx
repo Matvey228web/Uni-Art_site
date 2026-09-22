@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <div className="mx-auto w-full max-w-3xl px-4 pb-24 pt-32 sm:px-6 sm:pt-40">
-      <h1 className="display text-4xl sm:text-5xl">Политика конфиденциальности</h1>
+      <h1 className="display text-[clamp(1.75rem,7.5vw,3rem)]">Политика конфиденциальности</h1>
       <div className="mt-8 space-y-5 text-muted">
         <p>
           {site.legalName} обрабатывает персональные данные, которые вы оставляете

@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { navLinks, site } from "@/content/site";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -20,6 +21,19 @@ export default function Header() {
     return () => {
       document.body.style.overflow = "";
     };
+  }, [open]);
+
+  // Меню на весь экран обязано закрываться с клавиатуры, иначе из него
+  // некуда деться, кроме как перезагрузить страницу
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      toggleRef.current?.focus();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
   return (
@@ -44,7 +58,7 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="meta transition hover:text-fg"
+              className="meta -my-3.5 py-3.5 transition hover:text-fg"
             >
               {link.label}
             </Link>
@@ -59,8 +73,9 @@ export default function Header() {
             Написать
           </Link>
           <button
+            ref={toggleRef}
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line md:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Закрыть меню" : "Открыть меню"}

@@ -198,7 +198,9 @@ export default function PropsCollage() {
             cancelAnimationFrame(frameRef.current);
           }
         },
-        { threshold: 0.08 },
+        // запас вокруг экрана: предметы успевают упасть до того,
+        // как секция окажется перед глазами
+        { rootMargin: "60% 0px", threshold: 0 },
       );
       io.observe(scene);
 

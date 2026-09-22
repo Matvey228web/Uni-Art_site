@@ -17,7 +17,7 @@ export default function Footer() {
               <ul className="space-y-2 text-sm">
                 {navLinks.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-[13px] text-muted transition hover:text-fg">
+                    <Link href={link.href} className="-mx-2 -my-2.5 inline-block px-2 py-2.5 text-[13px] text-muted transition hover:text-fg">
                       {link.label}
                     </Link>
                   </li>
@@ -28,14 +28,14 @@ export default function Footer() {
               <p className="eyebrow mb-4">Контакты</p>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href={`mailto:${site.email}`} className="text-[13px] text-muted transition hover:text-fg">
+                  <a href={`mailto:${site.email}`} className="-mx-2 -my-2.5 inline-block px-2 py-2.5 text-[13px] text-muted transition hover:text-fg">
                     {site.email}
                   </a>
                 </li>
                 <li>
                   <a
                     href={`tel:${site.phone.replace(/[^+\d]/g, "")}`}
-                    className="text-[13px] text-muted transition hover:text-fg"
+                    className="-mx-2 -my-2.5 inline-block px-2 py-2.5 text-[13px] text-muted transition hover:text-fg"
                   >
                     {site.phone}
                   </a>
@@ -46,7 +46,7 @@ export default function Footer() {
                       href={s.href}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="text-[13px] text-muted transition hover:text-fg"
+                      className="-mx-2 -my-2.5 inline-block px-2 py-2.5 text-[13px] text-muted transition hover:text-fg"
                     >
                       {s.label}
                     </a>

@@ -17,6 +17,10 @@ export default function Contact() {
     const form = event.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
 
+    // Приманка для ботов: человек это поле не видит и не заполняет
+    if (data.website) return;
+    delete data.website;
+
     // Без настроенного endpoint статический сайт не может отправить письмо сам —
     // открываем почтовый клиент с уже заполненным письмом.
     if (!site.formEndpoint) {
@@ -133,8 +137,19 @@ export default function Contact() {
             <textarea name="message" rows={5} className={fieldClass} />
           </label>
 
+          <div aria-hidden className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
+            <label>
+              Не заполняйте это поле
+              <input name="website" tabIndex={-1} autoComplete="off" />
+            </label>
+          </div>
+
           <label className="flex items-start gap-3 text-xs text-muted">
-            <input type="checkbox" required className="mt-0.5 accent-[var(--accent)]" />
+            <input
+              type="checkbox"
+              required
+              className="mt-0.5 h-[18px] w-[18px] shrink-0 accent-[var(--accent)]"
+            />
             <span>
               Согласен на обработку персональных данных и принимаю{" "}
               <Link href="/privacy/" className="underline transition hover:text-fg">

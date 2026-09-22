@@ -2,7 +2,10 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="mx-auto flex min-h-[70svh] w-full max-w-3xl flex-col justify-center px-4 py-32 sm:px-6">
+    <main
+      id="main"
+      className="mx-auto flex min-h-[70svh] w-full max-w-3xl flex-col justify-center px-4 py-32 sm:px-6"
+    >
       <p className="eyebrow mb-4">Ошибка 404</p>
       <h1 className="display text-5xl sm:text-6xl">Кадр не найден</h1>
       <p className="mt-5 text-muted">
@@ -14,6 +17,6 @@ export default function NotFound() {
       >
         На главную
       </Link>
-    </div>
+    </main>
   );
 }

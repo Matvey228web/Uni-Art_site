@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Oswald } from "next/font/google";
 import { site } from "@/content/site";
 import "./globals.css";
@@ -37,13 +37,20 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
-    images: [{ url: site.heroPoster, width: 1600, height: 900, alt: site.name }],
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: `${site.name} — ${site.tagline}` }],
   },
   twitter: {
     card: "summary_large_image",
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
+    images: ["/og.jpg"],
   },
+};
+
+/** Цвет строки состояния в мобильных браузерах */
+export const viewport: Viewport = {
+  themeColor: "#0b0c0e",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
