@@ -66,7 +66,7 @@ export default function PaletteShell({ defaultPalette, grain = true, children }:
       {grain && (
         <div
           aria-hidden
-          className="grain pointer-events-none fixed inset-0 z-[60] after:fixed after:inset-0"
+          className="grain pointer-events-none fixed inset-0 z-[60]"
         />
       )}
 

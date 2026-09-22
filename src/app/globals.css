@@ -102,13 +102,103 @@ body {
   }
 }
 
+/*
+ * Плёночное зерно. Два слоя разной крупности дёргаются с разной частотой —
+ * так рисунок не повторяется и читается как живая плёнка, а не как текстура.
+ * Сдвигается transform, поэтому анимация идёт на композиторе и не заставляет
+ * браузер перерисовывать страницу.
+ */
+/* Позиционирование задаёт сам элемент: на первом экране relative, в прототипах fixed.
+   Свой position здесь перебил бы утилиту и сломал бы полноэкранный слой. */
+.grain {
+  overflow: hidden;
+}
+
+.grain::before,
 .grain::after {
   content: "";
   position: absolute;
-  inset: 0;
+  /* запас по краям: при сдвиге не должно открываться пустое место */
+  inset: -22%;
   pointer-events: none;
-  opacity: 0.045;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  will-change: transform;
+}
+
+/* мелкое зерно */
+.grain::after {
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' seed='7'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-jitter 0.62s steps(1, end) infinite;
+}
+
+/* крупное, медленнее и слабее — даёт «кипение» */
+.grain::before {
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.42' numOctaves='2' seed='19'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-jitter-slow 0.95s steps(1, end) infinite;
+}
+
+@keyframes grain-jitter {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  12.5% {
+    transform: translate3d(-7%, 4%, 0);
+  }
+  25% {
+    transform: translate3d(5%, -8%, 0);
+  }
+  37.5% {
+    transform: translate3d(-4%, -6%, 0);
+  }
+  50% {
+    transform: translate3d(8%, 3%, 0);
+  }
+  62.5% {
+    transform: translate3d(-9%, 7%, 0);
+  }
+  75% {
+    transform: translate3d(3%, -5%, 0);
+  }
+  87.5% {
+    transform: translate3d(-6%, -3%, 0);
+  }
+  100% {
+    transform: translate3d(6%, 6%, 0);
+  }
+}
+
+@keyframes grain-jitter-slow {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.04);
+  }
+  20% {
+    transform: translate3d(6%, -5%, 0) scale(1.04);
+  }
+  40% {
+    transform: translate3d(-8%, 3%, 0) scale(1.04);
+  }
+  60% {
+    transform: translate3d(4%, 8%, 0) scale(1.04);
+  }
+  80% {
+    transform: translate3d(-5%, -7%, 0) scale(1.04);
+  }
+  100% {
+    transform: translate3d(7%, 2%, 0) scale(1.04);
+  }
+}
+
+/*
+ * Тем, кто просил меньше движения, зерно остаётся — но замирает.
+ * Общее правило выше обнуляет длительность, здесь просто фиксируем кадр.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .grain::before,
+  .grain::after {
+    animation: none;
+    transform: none;
+  }
 }
 
 .reveal {
