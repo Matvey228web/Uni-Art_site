@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Oswald } from "next/font/google";
 import { site } from "@/content/site";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import "./globals.css";
 
 const body = Inter({
@@ -60,9 +58,7 @@ export default function RootLayout({
         >
           К основному содержимому
         </a>
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );
