@@ -12,10 +12,16 @@ type Filter = ProjectCategory | "Все";
 export default function Works() {
   const [filter, setFilter] = useState<Filter>("Все");
 
-  const filters: Filter[] = useMemo(
-    () => ["Все", ...projectCategories.filter((c) => projects.some((p) => p.category === c))],
-    [],
-  );
+  const filters = useMemo(() => {
+    const used = projectCategories.filter((c) => projects.some((p) => p.category === c));
+    return [
+      { label: "Все" as Filter, count: projects.length },
+      ...used.map((c) => ({
+        label: c as Filter,
+        count: projects.filter((p) => p.category === c).length,
+      })),
+    ];
+  }, []);
 
   const visible = useMemo(
     () => (filter === "Все" ? projects : projects.filter((p) => p.category === filter)),
@@ -29,55 +35,62 @@ export default function Works() {
       title="Избранные проекты"
       lead="Реклама, клипы, короткий метр и документальное — то, что мы сняли сами, от идеи до мастера."
     >
-      <div className="mb-10 flex flex-wrap gap-2" role="tablist" aria-label="Фильтр проектов">
+      <div
+        className="no-scrollbar -mx-4 mb-8 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:px-0"
+        role="tablist"
+        aria-label="Фильтр проектов"
+      >
         {filters.map((f) => (
           <button
-            key={f}
+            key={f.label}
             type="button"
             role="tab"
-            aria-selected={filter === f}
-            onClick={() => setFilter(f)}
-            className={`rounded-full border px-4 py-2 text-sm transition ${
-              filter === f
-                ? "border-accent bg-accent text-black"
-                : "border-line text-muted hover:border-accent hover:text-fg"
+            aria-selected={filter === f.label}
+            onClick={() => setFilter(f.label)}
+            className={`meta flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 transition ${
+              filter === f.label
+                ? "border-accent bg-accent text-[#0b0c0e]"
+                : "border-line hover:border-accent hover:text-fg"
             }`}
           >
-            {f}
+            {f.label}
+            <span className="tabular-nums opacity-60">{f.count}</span>
           </button>
         ))}
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:gap-x-6">
         {visible.map((project, i) => (
           <Reveal key={project.slug} delay={(i % 2) * 90}>
-            <Link
-              href={`/works/${project.slug}/`}
-              className="group block overflow-hidden rounded-lg border border-line bg-surface transition hover:border-accent/60"
-            >
-              <div className="relative aspect-video overflow-hidden">
+            <Link href={`/works/${project.slug}/`} className="group block">
+              <div className="relative aspect-video overflow-hidden bg-black">
                 <Image
                   src={project.poster}
                   alt={`Кадр из проекта «${project.title}»`}
                   fill
                   sizes="(max-width: 640px) 100vw, 50vw"
-                  className="object-cover transition duration-700 group-hover:scale-[1.04]"
+                  className="film object-cover group-hover:scale-[1.03]"
                 />
-                <span className="absolute left-4 top-4 rounded-full bg-black/70 px-3 py-1 text-xs text-fg backdrop-blur">
+                <span className="absolute inset-0 bg-bg/10 transition group-hover:bg-transparent" />
+                <span className="meta absolute left-4 top-4 rounded-full bg-bg/75 px-3 py-1 text-fg backdrop-blur">
                   {project.category}
                 </span>
+                <span className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-accent transition-transform duration-[2s] ease-linear group-hover:scale-x-100" />
               </div>
-              <div className="p-5 sm:p-6">
-                <div className="flex items-baseline justify-between gap-4">
+
+              <div className="mt-4 flex items-start justify-between gap-5 border-t border-line pt-4">
+                <div>
                   <h3 className="display text-2xl transition group-hover:text-accent">
                     {project.title}
                   </h3>
-                  <span className="text-sm text-muted">{project.year}</span>
+                  <p className="meta mt-2">{project.role}</p>
                 </div>
-                <p className="mt-3 text-sm text-muted">{project.summary}</p>
-                <p className="mt-4 text-xs uppercase tracking-[0.18em] text-muted">
-                  {project.role}
-                </p>
+                <div className="shrink-0 text-right">
+                  <span className="meta block tabular-nums">{project.year}</span>
+                  <span className="display mt-1 block text-xl tabular-nums text-line">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
               </div>
             </Link>
           </Reveal>

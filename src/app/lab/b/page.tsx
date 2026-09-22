@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import { projectCategories, projects, site, stats } from "@/content/site";
 import PaletteShell from "@/components/lab/PaletteShell";
-import PlayButton from "@/components/lab/PlayButton";
+import PlayButton from "@/components/PlayButton";
 
 /**
  * Вариант B — «Каталог».

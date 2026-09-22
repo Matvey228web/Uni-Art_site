@@ -62,23 +62,23 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
 
         <dl className="mt-12 grid gap-6 border-y border-line/60 py-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <dt className="text-xs uppercase tracking-[0.18em] text-muted">Наша роль</dt>
+            <dt className="meta">Наша роль</dt>
             <dd className="mt-2">{project.role}</dd>
           </div>
           {project.client && (
             <div>
-              <dt className="text-xs uppercase tracking-[0.18em] text-muted">Клиент</dt>
+              <dt className="meta">Клиент</dt>
               <dd className="mt-2">{project.client}</dd>
             </div>
           )}
           {project.duration && (
             <div>
-              <dt className="text-xs uppercase tracking-[0.18em] text-muted">Хронометраж</dt>
+              <dt className="meta">Хронометраж</dt>
               <dd className="mt-2">{project.duration}</dd>
             </div>
           )}
           <div>
-            <dt className="text-xs uppercase tracking-[0.18em] text-muted">Год</dt>
+            <dt className="meta">Год</dt>
             <dd className="mt-2">{project.year}</dd>
           </div>
         </dl>
@@ -123,7 +123,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
             ← Все работы
           </Link>
           <Link href={`/works/${next.slug}/`} className="group text-right">
-            <span className="block text-xs uppercase tracking-[0.18em] text-muted">
+            <span className="meta block">
               Следующий проект
             </span>
             <span className="display mt-1 block text-2xl transition group-hover:text-accent">

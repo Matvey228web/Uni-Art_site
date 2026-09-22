@@ -4,20 +4,20 @@
       <stop offset="0%" stop-color="#1d120c"/>
       <stop offset="100%" stop-color="#05060a"/>
     </linearGradient>
-    <radialGradient id="key" cx="68%" cy="28%" r="52%">
-      <stop offset="0%" stop-color="#f0c08a" stop-opacity="0.6"/>
-      <stop offset="55%" stop-color="#f0c08a" stop-opacity="0.12"/>
-      <stop offset="100%" stop-color="#f0c08a" stop-opacity="0"/>
+    <radialGradient id="key" cx="78%" cy="62%" r="54%">
+      <stop offset="0%" stop-color="#f5c894" stop-opacity="0.62"/>
+      <stop offset="55%" stop-color="#f5c894" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#f5c894" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="shaft" x1="0.55" y1="0" x2="0.35" y2="1">
-      <stop offset="0%" stop-color="#f0c08a" stop-opacity="0.30"/>
-      <stop offset="100%" stop-color="#f0c08a" stop-opacity="0"/>
+    <linearGradient id="shaft" x1="0.5" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#f5c894" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#f5c894" stop-opacity="0"/>
     </linearGradient>
     <radialGradient id="vig" cx="50%" cy="45%" r="72%">
-      <stop offset="50%" stop-color="#000" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#000" stop-opacity="0.85"/>
+      <stop offset="48%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.88"/>
     </radialGradient>
-    <filter id="soft"><feGaussianBlur stdDeviation="26"/></filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="24"/></filter>
     <filter id="grain">
       <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
       <feColorMatrix type="saturate" values="0"/>
@@ -26,13 +26,9 @@
 
   <rect width="1600" height="900" fill="url(#bg)"/>
   <rect width="1600" height="900" fill="url(#key)"/>
-  <polygon points="780,0 1160,0 660,900 380,900" fill="url(#shaft)"/>
+  <polygon points="1180,0 1480,0 980,900 700,900" fill="url(#shaft)"/>
 
-  <g filter="url(#soft)" fill="#04050a" opacity="0.88">
-    <ellipse cx="520" cy="690" rx="140" ry="215"/>
-    <circle cx="520" cy="452" r="78"/>
-    <ellipse cx="1130" cy="800" rx="230" ry="150"/>
-  </g>
+  <g filter="url(#soft)" fill="#04050a" opacity="0.9"><ellipse cx="430" cy="700" rx="130" ry="210"/><circle cx="430" cy="470" r="74"/></g>
 
   <rect width="1600" height="900" fill="url(#vig)"/>
   <rect width="1600" height="900" filter="url(#grain)" opacity="0.09"/>

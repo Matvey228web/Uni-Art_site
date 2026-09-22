@@ -1,14 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #07080b;
-  --bg-soft: #0d0f14;
-  --surface: #12141b;
-  --border: #23262f;
-  --fg: #f2f3f5;
-  --fg-muted: #9aa0ab;
-  --accent: #c8a24a;
-  --accent-soft: rgba(200, 162, 74, 0.14);
+  /* Графит как основа, тёплый белый текст, янтарный акцент —
+     компромисс между охрой «Плёнки» и киноварью варианта C. */
+  --bg: #0b0c0e;
+  --bg-soft: #111316;
+  --surface: #16181c;
+  --border: rgba(242, 240, 236, 0.14);
+  --fg: #f2f0ec;
+  --fg-muted: rgba(242, 240, 236, 0.62);
+  --accent: #e0813c;
+  --accent-soft: rgba(224, 129, 60, 0.14);
 }
 
 @theme inline {
@@ -68,11 +70,36 @@ body {
 }
 
 .eyebrow {
-  font-family: var(--font-display), system-ui, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.22em;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 600;
   color: var(--accent);
+}
+
+/* Мелкая служебная строка: год, роль, хронометраж */
+.meta {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  color: var(--fg-muted);
+}
+
+/* Кадры приглушены и оживают при наведении на карточку */
+.film {
+  filter: grayscale(1) contrast(1.04);
+  transition: filter 0.8s ease, transform 0.8s ease;
+}
+
+.group:hover .film,
+.film-lit {
+  filter: grayscale(0) contrast(1);
+}
+
+@media (hover: none) {
+  .film {
+    filter: grayscale(0.35);
+  }
 }
 
 .grain::after {

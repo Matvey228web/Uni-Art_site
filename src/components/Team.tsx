@@ -40,7 +40,7 @@ export default function Team() {
               </div>
               <div className="p-5">
                 <h3 className="text-lg font-medium">{member.name}</h3>
-                <p className="mt-1 text-xs uppercase tracking-[0.18em] text-accent">
+                <p className="eyebrow mt-2">
                   {member.role}
                 </p>
                 <p className="mt-3 text-sm text-muted">{member.bio}</p>

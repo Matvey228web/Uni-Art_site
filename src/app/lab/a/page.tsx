@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { projects, site } from "@/content/site";
 import PaletteShell from "@/components/lab/PaletteShell";
-import PlayButton from "@/components/lab/PlayButton";
+import PlayButton from "@/components/PlayButton";
 
 /**
  * Вариант A — «Тихий».

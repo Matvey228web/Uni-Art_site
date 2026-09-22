@@ -44,7 +44,7 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-muted transition hover:text-fg"
+              className="meta transition hover:text-fg"
             >
               {link.label}
             </Link>
@@ -104,7 +104,7 @@ export default function Header() {
               <Link
                 href="/#contact"
                 onClick={() => setOpen(false)}
-                className="mt-6 inline-flex rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-black"
+                className="mt-6 inline-flex rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-[#0b0c0e]"
               >
                 Обсудить проект
               </Link>
