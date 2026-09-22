@@ -1,23 +1,26 @@
-/** Киноатрибутика для физического коллажа. Картинки лежат в /public/props. */
+/**
+ * Киноатрибутика для физического коллажа.
+ *
+ * Это настоящие фотографии с Викисклада, вырезанные по контуру.
+ * Лицензии и ссылки на оригиналы — в public/props/CREDITS.md.
+ */
 
 export type Prop = {
   file: string;
   alt: string;
   /** Ширина в пикселях при широком экране; высота считается из пропорций */
   width: number;
-  /** Соотношение сторон исходного PNG */
+  /** Соотношение сторон картинки */
   ratio: number;
   /** Круглые предметы катаются, прямоугольные — падают плашмя */
   shape: "circle" | "box";
 };
 
 export const props: Prop[] = [
-  { file: "clapper.png", alt: "Хлопушка", width: 160, ratio: 370 / 340, shape: "box" },
-  { file: "reel.png", alt: "Бобина с плёнкой", width: 124, ratio: 1, shape: "circle" },
-  { file: "filmstrip.png", alt: "Обрывок киноплёнки", width: 176, ratio: 360 / 150, shape: "box" },
-  { file: "ticket.png", alt: "Билет в кино", width: 136, ratio: 280 / 150, shape: "box" },
-  { file: "lens.png", alt: "Объектив", width: 104, ratio: 1, shape: "circle" },
-  { file: "megaphone.png", alt: "Мегафон", width: 148, ratio: 320 / 220, shape: "box" },
-  { file: "filmcan.png", alt: "Коробка для плёнки", width: 112, ratio: 1, shape: "circle" },
-  { file: "mic.png", alt: "Микрофон-пушка", width: 168, ratio: 360 / 120, shape: "box" },
+  { file: "clapper-blue.webp", alt: "Деревянная хлопушка", width: 152, ratio: 430 / 360, shape: "box" },
+  { file: "clapper-yellow.webp", alt: "Хлопушка со съёмок", width: 156, ratio: 430 / 310, shape: "box" },
+  { file: "reel-white.webp", alt: "Бобина 16 мм с плёнкой", width: 116, ratio: 430 / 429, shape: "circle" },
+  { file: "reel-black.webp", alt: "Открытая бобина Super 8", width: 132, ratio: 430 / 362, shape: "box" },
+  { file: "reels-super8.webp", alt: "Бобины 8 мм", width: 150, ratio: 430 / 274, shape: "box" },
+  { file: "cassettes.webp", alt: "Кассеты с плёнкой 135", width: 148, ratio: 430 / 290, shape: "box" },
 ];

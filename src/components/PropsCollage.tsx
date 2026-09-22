@@ -15,7 +15,7 @@ const REDUCED = "(prefers-reduced-motion: reduce)";
  * Масштаб считается от индекса, а не случайно: разметка рендерится
  * на сервере, случайные числа разошлись бы при гидратации.
  */
-const instances = Array.from({ length: propList.length * 3 - 4 }, (_, i) => {
+const instances = Array.from({ length: propList.length * 3 }, (_, i) => {
   const prop = propList[i % propList.length];
   const scale = [1, 0.74, 0.88, 0.62, 1.08][i % 5];
   return { ...prop, key: `${prop.file}-${i}`, width: prop.width * scale };
