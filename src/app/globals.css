@@ -118,6 +118,11 @@ body {
  * 1. Шум был мягкий, в три октавы, с шумящей альфой — почти без перепада
  *    между соседними пикселями. Теперь одна октава, поднятый контраст
  *    и непрозрачная альфа: перепад вырос примерно в пять раз.
+ * 1a. Шум рисовался фильтром SVG прямо на странице, и браузер генерировал
+ *    его в физических пикселях: на экране айфона зерно выходило втрое мельче
+ *    и глаз его усреднял — вклад падал в два с лишним раза. Теперь это
+ *    готовая растровая плитка с заданным размером в css-пикселях,
+ *    одинаковая при любой плотности экрана.
  * 2. Наложение overlay сохраняет чёрное, а сайт почти чёрный, поэтому
  *    зерно в тенях схлопывалось. Обычное наложение, а яркость шума
  *    занижена, чтобы он не задирал тени.
@@ -133,6 +138,18 @@ body {
   opacity: var(--grain-opacity, 0.055);
 }
 
+/*
+ * На экранах с высокой плотностью зерно растеризуется мельче и глаз его
+ * усредняет: замер показал падение вклада в два с лишним раза по сравнению
+ * с обычным экраном. Ни растровая плитка, ни отключение сглаживания этого
+ * не меняют, поэтому компенсируем силой — коэффициент подобран замером.
+ */
+@media (min-resolution: 2dppx) {
+  .grain {
+    opacity: calc(var(--grain-opacity, 0.055) * 2.05);
+  }
+}
+
 .grain::before,
 .grain::after {
   content: "";
@@ -145,14 +162,17 @@ body {
 
 /* мелкое зерно */
 .grain::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='1' seed='11'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='2.4' intercept='-1.05'/%3E%3CfeFuncG type='linear' slope='2.4' intercept='-1.05'/%3E%3CfeFuncB type='linear' slope='2.4' intercept='-1.05'/%3E%3CfeFuncA type='discrete' tableValues='1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("/grain.png");
+  background-size: 160px 160px;
   animation: grain-jitter 0.62s steps(1, end) infinite;
 }
 
-/* крупное, медленнее и слабее — даёт «кипение» */
+/* крупное, медленнее и слабее — даёт «кипение».
+   Та же плитка, растянутая втрое: второй файл ради этого не нужен. */
 .grain::before {
   opacity: 0.45;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='190' height='190'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='1' seed='23'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='2' intercept='-1.1'/%3E%3CfeFuncG type='linear' slope='2' intercept='-1.1'/%3E%3CfeFuncB type='linear' slope='2' intercept='-1.1'/%3E%3CfeFuncA type='discrete' tableValues='1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='190' height='190' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("/grain.png");
+  background-size: 460px 460px;
   animation: grain-jitter-slow 0.95s steps(1, end) infinite;
 }
 
