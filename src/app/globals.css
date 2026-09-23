@@ -424,8 +424,43 @@ body {
   animation-delay: var(--fl-delay, 0s);
 }
 
+/*
+ * Тот же срыв, но на всё отображение разом: шапка, содержимое, подвал
+ * и зерно. Ступени мягче, чем у кадров — на тексте сильное размытие
+ * читается как брак, а не как эффект. И реже: срыв всей картины —
+ * событие крупнее, чем срыв одного кадра.
+ *
+ * Фаза у всех частей общая, чтобы страница срывалась целиком, а не
+ * по кускам. Цикл не кратен циклу кадров, поэтому иногда срывы
+ * накладываются, а иногда идут порознь.
+ */
+@keyframes holo-smear-page {
+  0%,
+  88% {
+    backdrop-filter: none;
+  }
+  89% {
+    backdrop-filter: url(#smear-1);
+  }
+  90% {
+    backdrop-filter: url(#smear-2);
+  }
+  91% {
+    backdrop-filter: url(#smear-1);
+  }
+  92%,
+  100% {
+    backdrop-filter: none;
+  }
+}
+
+.page-smear {
+  animation: holo-smear-page 19s steps(1, end) infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .flutter {
+  .flutter,
+  .page-smear {
     animation: none;
   }
 }

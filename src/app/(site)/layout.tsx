@@ -1,4 +1,5 @@
 import FilmGrain from "@/components/FilmGrain";
+import PageSmear from "@/components/PageSmear";
 import SmearFilters from "@/components/SmearFilters";
 import RimLight from "@/components/RimLight";
 import Header from "@/components/Header";
@@ -14,6 +15,7 @@ export default function SiteLayout({
       <main id="main">{children}</main>
       <Footer />
       <SmearFilters />
+      <PageSmear />
       <FilmGrain />
       <RimLight />
     </>
