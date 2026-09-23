@@ -1,4 +1,5 @@
 import FilmGrain from "@/components/FilmGrain";
+import SmearFilters from "@/components/SmearFilters";
 import RimLight from "@/components/RimLight";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -10,8 +11,9 @@ export default function SiteLayout({
   return (
     <>
       <Header />
-      <main id="main" className="flutter-page">{children}</main>
+      <main id="main">{children}</main>
       <Footer />
+      <SmearFilters />
       <FilmGrain />
       <RimLight />
     </>

@@ -364,179 +364,68 @@ body {
   }
 }
 
-/* --- Дрожание кадра --- */
+/* --- Вертикальный смаз --- */
 
 /*
- * Плёнку в проекторе никогда не держит идеально: кадр едва заметно ведёт
- * в рамке, а яркость чуть дышит. Отсюда два слоя движения.
+ * Ничего не двигается. Вместо сдвига картинка срывается по вертикали
+ * короткими вспышками — как изображение, которое на мгновение теряет
+ * развёртку, и вместе с ней резкость.
  *
- * Первый — постоянное дрожание в доли пикселя. Второй, с некратным
- * периодом, — редкий рывок, как от склейки, прошедшей через фильмовый канал.
- * Периоды не кратны друг другу, поэтому рисунок не повторяется заметно.
+ * Большую часть цикла фильтра нет вовсе: срыв должен быть событием,
+ * а не фоном. Это заодно дёшево — тяжёлый проход фильтра случается
+ * считанные кадры за цикл.
  *
- * Дрожание живёт в свойстве translate, рывок — в transform. Это разные
- * свойства, они складываются, поэтому две анимации на одном элементе
- * не конфликтуют.
- *
- * Только на изображениях: от постоянного субпиксельного сдвига текст
- * начинает «плыть» и читается хуже.
+ * Ступени фильтра переключаются скачком: значение filter в CSS
+ * не интерполируется. Для срыва это правильно, плавное нарастание
+ * размытия выглядело бы как расфокус объектива, а не как сбой.
  */
-@keyframes gate-weave {
-  0% {
-    translate: 0 0;
-    filter: blur(0);
+@keyframes holo-smear {
+  0%,
+  73% {
+    filter: none;
     opacity: 1;
   }
-  7% {
-    filter: blur(0.42px);
-  }
-  14% {
-    translate: 0.4px -0.3px;
-    filter: blur(0.05px);
-    opacity: 0.994;
-  }
-  21% {
-    filter: blur(0.4px);
-  }
-  27% {
-    translate: -0.3px 0.5px;
-    filter: blur(0.04px);
-    opacity: 1;
-  }
-  34% {
-    filter: blur(0.32px);
-  }
-  41% {
-    translate: 0.2px 0.25px;
-    filter: blur(0.04px);
-    opacity: 0.997;
-  }
-  48% {
-    filter: blur(0.44px);
-  }
-  56% {
-    translate: -0.5px -0.2px;
-    filter: blur(0.05px);
-    opacity: 1;
-  }
-  62% {
-    filter: blur(0.38px);
-  }
-  68% {
-    translate: 0.35px 0.4px;
-    filter: blur(0.04px);
-    opacity: 0.992;
+  74% {
+    filter: url(#smear-1);
+    opacity: 0.97;
   }
   75% {
-    filter: blur(0.36px);
+    filter: url(#smear-3);
+    opacity: 0.88;
   }
-  83% {
-    translate: -0.2px -0.45px;
-    filter: blur(0.05px);
+  76% {
+    filter: url(#smear-2);
+    opacity: 0.95;
+  }
+  77%,
+  93% {
+    filter: none;
     opacity: 1;
   }
-  92% {
-    filter: blur(0.42px);
+  94% {
+    filter: url(#smear-2);
+    opacity: 0.92;
   }
+  95%,
   100% {
-    translate: 0 0;
-    filter: blur(0);
-    opacity: 0.998;
-  }
-}
-
-@keyframes gate-splice {
-  0%,
-  86% {
-    transform: translate3d(0, 0, 0);
-  }
-  88% {
-    transform: translate3d(1.4px, -1.8px, 0);
-  }
-  90% {
-    transform: translate3d(-0.8px, 0.6px, 0);
-  }
-  92%,
-  100% {
-    transform: translate3d(0, 0, 0);
+    filter: none;
+    opacity: 1;
   }
 }
 
 /*
- * Смазывание на ходу. Резкость падает в середине каждого хода, где
- * скорость наибольшая, и возвращается в точках разворота: так ведёт себя
- * кадр, который не успевает замереть. Без этого движение читается как
- * ровный сдвиг, и картинка выглядит неподвижной.
- *
- * Блоки идут вразнобой: у каждого своя фаза (--fl-delay) и свой темп
- * (--fl-rate), которые проставляются по порядковому номеру. Иначе все
- * кадры дрожат одинаково и вся страница шевелится единым куском.
+ * Блоки срываются вразнобой: у каждого своя фаза (--fl-delay) и свой темп
+ * (--fl-rate) по порядковому номеру. Иначе вся страница моргала бы разом.
  * Значения считаются от индекса, а не случайно: разметка рендерится
  * на сервере, случайные числа разошлись бы при гидратации.
  */
 .flutter {
-  animation-name: gate-weave, gate-splice;
-  animation-duration: calc(3.1s * var(--fl-rate, 1)), calc(11.7s * var(--fl-rate, 1));
-  animation-delay: var(--fl-delay, 0s), calc(var(--fl-delay, 0s) * 2.7);
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
+  animation: holo-smear calc(12s * var(--fl-rate, 1)) steps(1, end) infinite;
+  animation-delay: var(--fl-delay, 0s);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .flutter {
-    animation: none;
-  }
-}
-
-@keyframes gate-weave-page {
-  0% {
-    translate: 0 0;
-  }
-  17% {
-    translate: -0.3px 0.2px;
-  }
-  33% {
-    translate: 0.25px 0.35px;
-  }
-  48% {
-    translate: 0.15px -0.3px;
-  }
-  62% {
-    translate: -0.35px -0.15px;
-  }
-  79% {
-    translate: 0.3px 0.25px;
-  }
-  100% {
-    translate: 0 0;
-  }
-}
-
-@keyframes gate-splice-page {
-  0%,
-  91% {
-    transform: translate3d(0, 0, 0);
-  }
-  93% {
-    transform: translate3d(-1.1px, 1.3px, 0);
-  }
-  95% {
-    transform: translate3d(0.5px, -0.5px, 0);
-  }
-  97%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-.flutter-page {
-  animation:
-    gate-weave-page 4.7s ease-in-out infinite,
-    gate-splice-page 17.3s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .flutter-page {
     animation: none;
   }
 }
