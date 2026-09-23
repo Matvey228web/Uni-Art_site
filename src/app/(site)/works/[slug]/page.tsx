@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { flutterStyle } from "@/lib/flutter";
 import { projects, site } from "@/content/site";
 
 type Params = { slug: string };
@@ -40,7 +41,10 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
 
   return (
     <article className="pt-16 sm:pt-20">
-      <div className="flutter relative aspect-[16/9] w-full overflow-hidden sm:aspect-[21/9]">
+      <div
+        className="flutter relative aspect-[16/9] w-full overflow-hidden sm:aspect-[21/9]"
+        style={flutterStyle(2)}
+      >
         <Image
           src={project.poster}
           alt={`Кадр из проекта «${project.title}»`}

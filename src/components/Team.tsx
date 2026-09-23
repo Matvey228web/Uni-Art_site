@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { team } from "@/content/site";
+import { flutterStyle } from "@/lib/flutter";
 import Reveal from "./Reveal";
 import Section from "./Section";
 
@@ -26,7 +27,7 @@ export default function Team() {
               data-rim
               className="rim h-full overflow-hidden rounded-lg border border-line bg-surface"
             >
-              <div className="flutter relative aspect-[4/5] bg-bg-soft">
+              <div className="flutter relative aspect-[4/5] bg-bg-soft" style={flutterStyle(i + 3)}>
                 {member.photo ? (
                   <Image
                     src={member.photo}

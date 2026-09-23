@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { projectCategories, projects, type ProjectCategory } from "@/content/site";
+import { flutterStyle } from "@/lib/flutter";
 import Reveal from "./Reveal";
 import Section from "./Section";
 
@@ -67,7 +68,10 @@ export default function Works() {
               data-rim
               className="rim group block rounded-sm"
             >
-              <div className="flutter relative aspect-video overflow-hidden bg-black">
+              <div
+                className="flutter relative aspect-video overflow-hidden bg-black"
+                style={flutterStyle(i)}
+              >
                 <Image
                   src={project.poster}
                   alt={`Кадр из проекта «${project.title}»`}

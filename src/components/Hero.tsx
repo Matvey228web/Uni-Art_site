@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { site, stats } from "@/content/site";
+import { flutterStyle } from "@/lib/flutter";
 import PlayButton from "./PlayButton";
 import VideoModal from "./VideoModal";
 
@@ -13,7 +14,7 @@ export default function Hero() {
   return (
     <>
       <section className="relative isolate flex min-h-svh flex-col justify-end overflow-hidden pt-24">
-        <div className="flutter absolute inset-0 -z-10">
+        <div className="flutter absolute inset-0 -z-10" style={flutterStyle(7)}>
           {site.heroVideo ? (
             <video
               className="h-full w-full object-cover"
