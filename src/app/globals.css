@@ -343,7 +343,10 @@ body {
  *
  * Фаза у всех частей общая, чтобы страница срывалась целиком, а не
  * по кускам. Цикл не кратен циклу кадров, поэтому иногда срывы
- * накладываются, а иногда идут порознь.
+ * накладываются, а иногда идут порознь. Период и сдвиг вынесены
+ * в переменные: --glitch-every задаёт, как часто, --glitch-offset —
+ * отрицательный сдвиг, чтобы первый срыв случился вскоре после
+ * загрузки, а не через полный цикл.
  *
  * Ступени намеренно неровные — и по длительности, и по силе. Ровный
  * ритм читается как цифровой сбой; аналоговый срывается рывком, почти
@@ -389,13 +392,97 @@ body {
   }
 }
 
+/*
+ * Сбой уровня сигнала: кадр то вспыхивает, то проваливается.
+ *
+ * Сделано обычной заливкой, а не backdrop-filter. Фильтр фона был бы
+ * точнее — можно было бы и обесцветить, — но два полноэкранных слоя,
+ * каждый со своим чтением фона, стоили 133 мс на кадре против 17.
+ * Заливка не читает фон вовсе: она просто лежит поверх и живёт
+ * на композиторе.
+ *
+ * И работает везде, в отличие от ссылки на SVG-фильтр из page-smear:
+ * если её движок не понимает, срыв всё равно виден.
+ */
+@keyframes holo-roll {
+  0%,
+  88% {
+    background-color: transparent;
+  }
+  88.2% {
+    background-color: rgb(var(--rim-rgb) / 0.16);
+  }
+  88.9% {
+    background-color: rgb(0 0 0 / 0.2);
+  }
+  89.6% {
+    background-color: rgb(var(--rim-rgb) / 0.1);
+  }
+  90.6% {
+    background-color: rgb(0 0 0 / 0.12);
+  }
+  91.4% {
+    background-color: rgb(var(--rim-rgb) / 0.07);
+  }
+  92.4%,
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes holo-bar {
+  0%,
+  87.8% {
+    opacity: 0;
+    transform: translate3d(0, -40vh, 0);
+  }
+  88.2% {
+    opacity: 1;
+  }
+  91.6% {
+    opacity: 1;
+  }
+  92.4%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 115vh, 0);
+  }
+}
+
 .page-smear {
-  animation: holo-smear-page 19s steps(1, end) infinite;
+  animation: holo-smear-page var(--glitch-every, 11s) steps(1, end) infinite;
+  animation-delay: var(--glitch-offset, -8s);
+}
+
+.page-roll {
+  animation: holo-roll var(--glitch-every, 11s) steps(1, end) infinite;
+  animation-delay: var(--glitch-offset, -8s);
+}
+
+.page-bar {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 26vh;
+  /* яркий шов посередине — место, где кадр не сошёлся сам с собой */
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgb(var(--rim-rgb) / 0.05) 30%,
+    rgb(var(--rim-rgb) / 0.2) 46%,
+    rgb(var(--rim-rgb) / 0.32) 50%,
+    rgb(var(--rim-rgb) / 0.06) 55%,
+    transparent 74%
+  );
+  animation: holo-bar var(--glitch-every, 11s) linear infinite;
+  animation-delay: var(--glitch-offset, -8s);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .flutter,
-  .page-smear {
+  .page-smear,
+  .page-roll,
+  .page-bar {
     animation: none;
   }
 }

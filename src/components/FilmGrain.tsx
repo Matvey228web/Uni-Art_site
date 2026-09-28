@@ -5,12 +5,8 @@ import { TILE, grainTile } from "@/lib/grain";
 
 /** Сколько плиток перебирать. Зерно должно пересыпаться, а не ездить. */
 const FRAMES = 3;
-/** Во сколько раз крупнее второй слой и насколько он слабее. */
-const COARSE_SCALE = 2.9;
-const COARSE_ALPHA = 0.45;
-/** Смены кадра в секунду: у мелкого слоя чаще, у крупного реже — отсюда «кипение». */
-const FINE_FPS = 13;
-const COARSE_FPS = 5.3;
+/** Смен кадра в секунду. */
+const FPS = 13;
 
 /**
  * Плёночное зерно поверх всей страницы.
@@ -18,10 +14,15 @@ const COARSE_FPS = 5.3;
  * Рисуем на холсте, а не мостим картинку фоном, по двум причинам.
  *
  * Первая: холст заводится в css-пикселях, а растягивает его до плотности
- * экрана уже браузер — и растягивает без интерполяции, по правилу
- * image-rendering. Сгусток зерна выходит одного видимого размера и одной
- * силы на любом экране: раньше на ретине зерно мельчало вдвое, глаз его
- * усреднял, и это приходилось вытягивать отдельным правилом на прозрачность.
+ * экрана уже браузер, своей интерполяцией. Сгусток зерна выходит одного
+ * видимого размера на любом экране: раньше на ретине зерно мельчало вдвое,
+ * глаз его усреднял, и это приходилось вытягивать отдельным правилом
+ * на прозрачность.
+ *
+ * Растягивать без интерполяции (image-rendering: pixelated) нельзя, хотя
+ * так сохранялся бы контраст: на экране втрое плотнее каждый пиксель шума
+ * превращается в жёсткий квадрат 3x3, и зерно перестаёт быть зерном.
+ * У плёнки резких краёв нет. Потерю контраста добираем амплитудой.
  *
  * В физических пикселях холст рисовать нельзя: на ретине это 2560x1800,
  * и перерисовка тринадцать раз в секунду роняла по восемьдесят длинных
@@ -32,6 +33,10 @@ const COARSE_FPS = 5.3;
  * нельзя — глаз цепляется за узор и видит, как тот едет целиком. Здесь
  * кадры перебираются по кругу, и каждый ещё и смещён, так что повторов
  * рисунка не поймать.
+ *
+ * Слой один. Раньше их было два, мелкий и втрое крупнее, ради «кипения»
+ * на разных масштабах — теперь разные масштабы есть в самой плитке,
+ * и второй слой только съедал контраст и время.
  *
  * Слой не ловит события и лежит ниже шапки, чтобы интерфейс оставался чётким.
  */
@@ -58,65 +63,49 @@ export default function FilmGrain() {
       canvas.height = window.innerHeight;
     };
 
-    /** Смещение кадра: своё у каждой пары «плитка + слой», без повторов на глаз. */
+    /** Смещение кадра: своё у каждого, без повторов рисунка на глаз. */
     const shift = (n: number) => ((n * 2654435761) % TILE) - TILE / 2;
 
-    const paint = (fine: number, coarse: number) => {
+    const paint = (frame: number) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const a = patterns[fine % patterns.length];
-      a.setTransform(new DOMMatrix().translateSelf(shift(fine), shift(fine + 7)));
-      ctx.globalAlpha = 1;
-      ctx.fillStyle = a;
+      const tile = patterns[frame % patterns.length];
+      tile.setTransform(new DOMMatrix().translateSelf(shift(frame), shift(frame + 7)));
+      ctx.fillStyle = tile;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      const b = patterns[coarse % patterns.length];
-      b.setTransform(
-        new DOMMatrix()
-          .translateSelf(shift(coarse + 3), shift(coarse + 11))
-          .scaleSelf(COARSE_SCALE),
-      );
-      ctx.globalAlpha = COARSE_ALPHA;
-      ctx.fillStyle = b;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.globalAlpha = 1;
     };
 
     resize();
 
     const still = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let frame = 0;
-    let lastFine = -1;
-    let lastCoarse = -1;
+    let raf = 0;
+    let last = -1;
 
     const tick = (now: number) => {
-      frame = requestAnimationFrame(tick);
+      raf = requestAnimationFrame(tick);
       if (document.hidden) return;
-      const fine = Math.floor((now / 1000) * FINE_FPS);
-      const coarse = Math.floor((now / 1000) * COARSE_FPS);
-      if (fine === lastFine && coarse === lastCoarse) return;
-      lastFine = fine;
-      lastCoarse = coarse;
-      paint(fine, coarse);
+      const frame = Math.floor((now / 1000) * FPS);
+      if (frame === last) return;
+      last = frame;
+      paint(frame);
     };
 
     const start = () => {
-      cancelAnimationFrame(frame);
-      if (still.matches) paint(0, 1);
-      else frame = requestAnimationFrame(tick);
+      cancelAnimationFrame(raf);
+      if (still.matches) paint(0);
+      else raf = requestAnimationFrame(tick);
     };
 
     const onResize = () => {
       resize();
-      lastFine = lastCoarse = -1;
-      if (still.matches) paint(0, 1);
+      last = -1;
+      if (still.matches) paint(0);
     };
 
     start();
     window.addEventListener("resize", onResize);
     still.addEventListener("change", start);
     return () => {
-      cancelAnimationFrame(frame);
+      cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
       still.removeEventListener("change", start);
     };
@@ -127,7 +116,6 @@ export default function FilmGrain() {
       ref={ref}
       aria-hidden
       className="grain pointer-events-none fixed inset-0 z-[45] h-full w-full"
-      style={{ imageRendering: "pixelated" }}
     />
   );
 }
